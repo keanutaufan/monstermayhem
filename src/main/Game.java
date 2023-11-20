@@ -8,22 +8,28 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements Runnable {
 	
-	private BufferedImage img;
+	private GameScreen gameScreen;
+	private BufferedImage img;	
+	private Thread gameThread;
+	
+	private final double FPS_SET = 120.0;
+	private final double UPS_SET = 60.0;
 	
 	public Game() {
 		importImg();
-		setSize(720, 640);
+		setSize(640, 640);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		add(new GameScreen(img));
+		gameScreen = new GameScreen(img);
+		add(gameScreen);
 		setVisible(true);
 	}
 	
 	private void importImg() {
 		
-		InputStream inputStream = getClass().getResourceAsStream("/images/logo.png");
+		InputStream inputStream = getClass().getResourceAsStream("/images/spriteatlas.png");
 		
 		if (inputStream != null) {
 	        try {
@@ -36,11 +42,60 @@ public class Game extends JFrame {
 	    }
 	}
 
+	private void start() {
+		gameThread = new Thread(this);
+		
+		gameThread.start();
+	}
+
+	private void updateGame() {
+		// TODO
+	}
+
 	public static void main(String[] args) {
 
 		System.out.println("hi mom");
 		
 		Game game = new Game();
+		game.start();
+	}
+
+	@Override
+	public void run() {
+		
+		double timePerFrame = 1000000000.0 / FPS_SET;
+		double timePerUpdate = 1000000000.0 / UPS_SET;
+		
+		long lastFrame = System.nanoTime();
+		long lastUpdate = System.nanoTime();
+		
+		long lastTimeCheck = System.currentTimeMillis();
+		
+		int frames = 0;
+		int updates = 0;
+		
+		while (true) {
+
+			if (System.nanoTime() - lastFrame >= timePerFrame) {
+				repaint();
+				lastFrame = System.nanoTime();
+				frames++;
+			}
+			
+			if(System.nanoTime() - lastUpdate >= timePerUpdate) {
+				updateGame();
+				lastUpdate = System.nanoTime();
+				updates++;
+			}
+			
+			if(System.currentTimeMillis() - lastTimeCheck >= 1000) {
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				frames = 0;
+				updates = 0;
+				lastTimeCheck = System.currentTimeMillis();
+			}
+		}
+		
 	}
 
 }
