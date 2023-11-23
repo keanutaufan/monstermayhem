@@ -24,8 +24,8 @@ public class Playing extends GameScene implements SceneMethods {
 
 	@Override
 	public void render(Graphics g) {
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 20; j++) {
+		for (int i = 0; i < 23; i++) {
+			for (int j = 0; j < 40; j++) {
 				g.drawImage(sprites.get(new Random().nextInt(29)), 32 * j, 32 * i, null);
 			}
 		}
