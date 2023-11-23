@@ -22,6 +22,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		System.out.println(e.getX() + " " + e.getY());
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			GameStates.gameState = GameStates.PLAYING;
 		} else if (e.getButton() == MouseEvent.BUTTON3) {
