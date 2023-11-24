@@ -9,47 +9,27 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import helpers.LevelBuilder;
 import main.Game;
+import managers.TileManager;
 
 public class Playing extends GameScene implements SceneMethods {
-
-	private BufferedImage img; 
-	private ArrayList<BufferedImage> sprites = new ArrayList<>();
+	
+	private int[][] level;
+	private TileManager tileManager;
 	
 	public Playing(Game game) {
 		super(game);
-		importImg();
-		loadSprite();
+		level = LevelBuilder.getLevelData();
+		tileManager = new TileManager();
 	}
 
 	@Override
 	public void render(Graphics g) {
-		for (int i = 0; i < 23; i++) {
-			for (int j = 0; j < 40; j++) {
-				g.drawImage(sprites.get(new Random().nextInt(29)), 32 * j, 32 * i, null);
-			}
-		}
-	}
-	
-	private void importImg() {
-		
-		InputStream inputStream = getClass().getResourceAsStream("/images/spriteatlas.png");
-		
-		if (inputStream != null) {
-	        try {
-	            img = ImageIO.read(inputStream);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    } else {
-	        System.err.println("Error loading image. InputStream is null.");
-	    }
-	}
-	
-	private void loadSprite() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 10; j++) {
-				sprites.add(img.getSubimage(32 * j, 32 * i, 32, 32));
+		for (int i = 0; i < level.length; i++) {
+			for (int j = 0; j < level[i].length; j++) {
+				int id = level[i][j];
+				g.drawImage(tileManager.getSprite(id), j * 32, i * 32, null);
 			}
 		}
 	}
