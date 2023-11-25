@@ -26,4 +26,21 @@ public class LoadSave {
 		return img;
 	}
 	
+	public static BufferedImage loadImage(String path) {
+		BufferedImage img = null;
+		InputStream inputStream = LoadSave.class.getClassLoader().getResourceAsStream(path);
+		
+		if (inputStream != null) {
+	        try {
+	            img = ImageIO.read(inputStream);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.err.println("Error loading image. InputStream is null.");
+	    }
+		
+		return img;
+	}
+	
 }

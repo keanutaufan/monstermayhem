@@ -4,9 +4,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import main.Game;
 import main.GameStates;
 
 public class MyMouseListener implements MouseListener, MouseMotionListener {
+	
+	private Game game;
+	
+	public MyMouseListener(Game game) {
+		this.game = game;
+	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -16,29 +23,68 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+		switch(GameStates.gameState) {
+		case MENU:
+			game.getMenu().handleMouseOver(e.getX(), e.getY());
+			break;
+		case PLAYING:
+			game.getPlaying().handleMouseOver(e.getX(), e.getY());
+			break;
+		case SETTINGS:
+			game.getSettings().handleMouseOver(e.getX(), e.getY());
+			break;
+		}
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX() + " " + e.getY());
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			GameStates.gameState = GameStates.PLAYING;
-		} else if (e.getButton() == MouseEvent.BUTTON3) {
-			System.out.println("Right Clicked");
+			switch(GameStates.gameState) {
+			case MENU:
+				game.getMenu().handleMouseClick(e.getX(), e.getY());
+				break;
+			case PLAYING:
+				game.getPlaying().handleMouseClick(e.getX(), e.getY());
+				break;
+			case SETTINGS:
+				game.getSettings().handleMouseClick(e.getX(), e.getY());
+				break;
+			
+			}
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		switch(GameStates.gameState) {
+		case MENU:
+			game.getMenu().handleMousePress(e.getX(), e.getY());
+			break;
+		case PLAYING:
+			game.getPlaying().handleMousePress(e.getX(), e.getY());
+			break;
+		case SETTINGS:
+			game.getSettings().handleMousePress(e.getX(), e.getY());
+			break;
 		
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		switch(GameStates.gameState) {
+		case MENU:
+			game.getMenu().handleMouseRelease(e.getX(), e.getY());
+			break;
+		case PLAYING:
+			game.getPlaying().handleMouseRelease(e.getX(), e.getY());
+			break;
+		case SETTINGS:
+			game.getSettings().handleMouseRelease(e.getX(), e.getY());
+			break;
+		
+		}
 		
 	}
 

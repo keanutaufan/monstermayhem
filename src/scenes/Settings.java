@@ -17,4 +17,28 @@ public class Settings extends GameScene implements SceneMethods {
 		
 	}
 
+	@Override
+	public void handleMouseClick(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleMouseOver(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleMousePress(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleMouseRelease(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

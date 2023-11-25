@@ -1,18 +1,12 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
 import javax.swing.JPanel;
 
 import inputs.KeyboardListener;
 import inputs.MyMouseListener;
+
 
 public class GameScreen extends JPanel {
 		
@@ -29,7 +23,7 @@ public class GameScreen extends JPanel {
 	}
 	
 	public void initInputs() {
-		myMouseListener = new MyMouseListener();
+		myMouseListener = new MyMouseListener(game);
 		keyboardListener = new KeyboardListener();
 		
 		addMouseListener(myMouseListener);
