@@ -11,21 +11,33 @@ import javax.imageio.ImageIO;
 
 import helpers.LevelBuilder;
 import main.Game;
+import managers.EnemyManager;
 import managers.TileManager;
 
 public class Playing extends GameScene implements SceneMethods {
 	
 	private int[][] level;
 	private TileManager tileManager;
+	private EnemyManager enemyManager;
 	
 	public Playing(Game game) {
 		super(game);
 		level = LevelBuilder.getLevelData();
 		tileManager = new TileManager();
+		enemyManager = new EnemyManager(this);
 	}
 
+	public void update() {
+		enemyManager.update();
+	}
+	
 	@Override
 	public void render(Graphics g) {
+		drawLevel(g);
+		enemyManager.draw(g);
+	}
+
+	public void drawLevel(Graphics g) {
 		for (int i = 0; i < level.length; i++) {
 			for (int j = 0; j < level[i].length; j++) {
 				int id = level[i][j];
@@ -33,7 +45,7 @@ public class Playing extends GameScene implements SceneMethods {
 			}
 		}
 	}
-
+	
 	@Override
 	public void handleMouseClick(int x, int y) {
 		// TODO Auto-generated method stub
