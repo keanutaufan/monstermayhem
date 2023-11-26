@@ -1,5 +1,6 @@
 package scenes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,25 +14,33 @@ import helpers.LevelBuilder;
 import main.Game;
 import managers.EnemyManager;
 import managers.TileManager;
+import ui.ImageButton;
 import managers.SpriteManager;
 
 public class Playing extends GameScene implements SceneMethods {
 	
 //	private int[][] level;
 //	private TileManager tileManager;
+	private final Color UI_BG_COLOR = new Color(189, 108, 74);
 	private EnemyManager enemyManager;
 	
 	private SpriteManager spriteManager;
+	private ArrayList<ImageButton> buyTurretButtons;
+	private ImageButton removeTurretButton;
+	
 	private int[][] bgLayout;
+	private int airdrop;
 	
 	public Playing(Game game) {
 		super(game);
+		airdrop = 0;
 //		level = LevelBuilder.getLevelData();
 //		tileManager = new TileManager();
 		enemyManager = new EnemyManager(this);
 		
 		spriteManager = new SpriteManager();
 		initBGLayout();
+		initUIComponents();
 		
 		
 	}
@@ -50,6 +59,32 @@ public class Playing extends GameScene implements SceneMethods {
 		
 		this.bgLayout = bgLayout;
 	}
+	
+	private void initUIComponents() {
+		buyTurretButtons = new ArrayList<>();
+		final int X_OFFSET = 200;
+		
+		for (int i = 0; i < 4; i++) {
+			BufferedImage img = spriteManager.getSprite(8 + i);
+			buyTurretButtons.add(new ImageButton(X_OFFSET + i * 87, 0, img, img, img));
+		}
+		
+		BufferedImage img = spriteManager.getSprite(13);
+		removeTurretButton = new ImageButton(X_OFFSET + 4 * 87 + 10, 0, img, img, img);
+	}
+	
+	private void drawUIComponents(Graphics g) {
+		g.setColor(UI_BG_COLOR);
+		g.fillRect(100, 0, 560, 100);
+		buyTurretButtons.forEach(b -> b.draw(g));
+		
+		g.drawImage(spriteManager.getSprite(12), 110, 0, null);
+		
+		g.setColor(Color.WHITE);
+		g.drawString(airdrop + "", 150, 80);
+		
+		removeTurretButton.draw(g);
+	}
 
 	public void update() {
 		enemyManager.update();
@@ -59,6 +94,7 @@ public class Playing extends GameScene implements SceneMethods {
 	public void render(Graphics g) {
 		drawLevel(g);
 		enemyManager.draw(g);
+		drawUIComponents(g);
 	}
 
 	public void drawLevel(Graphics g) {
