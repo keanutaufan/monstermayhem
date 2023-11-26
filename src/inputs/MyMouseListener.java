@@ -50,9 +50,19 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			case SETTINGS:
 				game.getSettings().handleMouseClick(e.getX(), e.getY());
 				break;
-			
+			}
+		} else if (e.getButton() == MouseEvent.BUTTON3) {
+			switch(GameStates.gameState) {
+			case MENU:
+				break;
+			case PLAYING:
+				game.getPlaying().setPlantingMode(false);
+				break;
+			case SETTINGS:
+				break;
 			}
 		}
+		
 	}
 
 	@Override

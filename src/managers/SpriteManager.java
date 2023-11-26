@@ -13,8 +13,8 @@ public class SpriteManager {
 		atlas = LoadSave.loadImage("level_sprites.png");
 		sprites = new ArrayList<>();
 		
-		loadTiles();
 		loadTurrets();
+		loadTiles();
 		loadLevelUIElements();
 	}
 	

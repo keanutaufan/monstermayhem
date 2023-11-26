@@ -14,7 +14,10 @@ import helpers.LevelBuilder;
 import main.Game;
 import managers.EnemyManager;
 import managers.TileManager;
+import managers.TurretManager;
+import turrets.TurretTypes;
 import ui.ImageButton;
+import ui.TurretButton;
 import managers.SpriteManager;
 
 public class Playing extends GameScene implements SceneMethods {
@@ -22,23 +25,32 @@ public class Playing extends GameScene implements SceneMethods {
 //	private int[][] level;
 //	private TileManager tileManager;
 	private final Color UI_BG_COLOR = new Color(189, 108, 74);
-	private EnemyManager enemyManager;
 	
+	private EnemyManager enemyManager;
 	private SpriteManager spriteManager;
-	private ArrayList<ImageButton> buyTurretButtons;
+	private ArrayList<TurretButton> buyTurretButtons;
 	private ImageButton removeTurretButton;
 	
 	private int[][] bgLayout;
 	private int airdrop;
 	
+	private boolean plantingMode;
+	private TurretTypes turretToPlant;
+	private TurretManager turretManager;
+	
+	private int placeholderX;
+	private int placeholderY;
+	
 	public Playing(Game game) {
 		super(game);
 		airdrop = 0;
+		plantingMode = false;
 //		level = LevelBuilder.getLevelData();
 //		tileManager = new TileManager();
-		enemyManager = new EnemyManager(this);
-		
+		enemyManager = new EnemyManager(this);		
 		spriteManager = new SpriteManager();
+		turretManager = new TurretManager(spriteManager);
+		
 		initBGLayout();
 		initUIComponents();
 		
@@ -64,10 +76,10 @@ public class Playing extends GameScene implements SceneMethods {
 		buyTurretButtons = new ArrayList<>();
 		final int X_OFFSET = 200;
 		
-		for (int i = 0; i < 4; i++) {
-			BufferedImage img = spriteManager.getSprite(8 + i);
-			buyTurretButtons.add(new ImageButton(X_OFFSET + i * 87, 0, img, img, img));
-		}
+		buyTurretButtons.add(new TurretButton(X_OFFSET + 0 * 87, 0, spriteManager.getSprite( 8), TurretTypes.GREEN_TANK));
+		buyTurretButtons.add(new TurretButton(X_OFFSET + 1 * 87, 0, spriteManager.getSprite( 9), TurretTypes.DESERT_TANK));
+		buyTurretButtons.add(new TurretButton(X_OFFSET + 2 * 87, 0, spriteManager.getSprite(10), TurretTypes.GRAY_TANK));
+		buyTurretButtons.add(new TurretButton(X_OFFSET + 3 * 87, 0, spriteManager.getSprite(11), TurretTypes.NAVY_TANK));
 		
 		BufferedImage img = spriteManager.getSprite(13);
 		removeTurretButton = new ImageButton(X_OFFSET + 4 * 87 + 10, 0, img, img, img);
@@ -95,6 +107,10 @@ public class Playing extends GameScene implements SceneMethods {
 		drawLevel(g);
 		enemyManager.draw(g);
 		drawUIComponents(g);
+		
+		if (plantingMode) {
+			turretManager.drawPlaceholder(g, placeholderX, placeholderY, turretToPlant);
+		}
 	}
 
 	public void drawLevel(Graphics g) {
@@ -108,21 +124,25 @@ public class Playing extends GameScene implements SceneMethods {
 		for (int y = 0; y < bgLayout.length; y++) {
 			for (int x = 0; x < bgLayout[y].length; x++) {
 				int id = bgLayout[y][x];
-				g.drawImage(spriteManager.getSprite(id), x * 120, y * 120, null);				
+				g.drawImage(spriteManager.getSprite(id + 4), x * 120, y * 120, null);				
 			}
 		}
 	}
 	
 	@Override
 	public void handleMouseClick(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		buyTurretButtons.forEach(b -> {
+			if (b.getBounds().contains(x, y)) {
+				setPlantingMode(true);
+				turretToPlant = b.getType();
+			}
+		});
 	}
 
 	@Override
 	public void handleMouseOver(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		placeholderX = x;
+		placeholderY = y;
 	}
 
 	@Override
@@ -135,6 +155,14 @@ public class Playing extends GameScene implements SceneMethods {
 	public void handleMouseRelease(int x, int y) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean getPlantingMode() {
+		return plantingMode;
+	}
+	
+	public void setPlantingMode(boolean plantingMode) {
+		this.plantingMode = plantingMode;
 	}
 
 }
