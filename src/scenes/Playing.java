@@ -2,6 +2,7 @@ package scenes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import main.Game;
 import managers.EnemyManager;
 import managers.TileManager;
 import managers.TurretManager;
+import turrets.Turret;
 import turrets.TurretTypes;
 import ui.ImageButton;
 import ui.TurretButton;
@@ -112,6 +114,8 @@ public class Playing extends GameScene implements SceneMethods {
 			turretManager.drawPlantArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY, turretToPlant);
 		}
+		
+		turretManager.draw(g);
 	}
 
 	public void drawLevel(Graphics g) {
@@ -136,8 +140,32 @@ public class Playing extends GameScene implements SceneMethods {
 			if (b.getBounds().contains(x, y)) {
 				setPlantingMode(true);
 				turretToPlant = b.getType();
+				return;
 			}
 		});
+		
+		if (plantingMode) {
+			Rectangle[][] plantArea = turretManager.getPlantArea();
+			for (int r = 0; r < plantArea.length; r++) {
+				for (int c = 0; c < plantArea[r].length; c++) {
+					Rectangle rect = plantArea[r][c];
+					if (rect.contains(x, y)) {
+						Turret turret = new Turret(
+								(int)rect.getX(), 
+								(int)rect.getY(), 
+								turretToPlant,
+								100,
+								spriteManager.getSprite(turretToPlant.getValue()));
+						
+						boolean success = turretManager.plantAt(r, c, turret);
+						
+						if (success) {
+							setPlantingMode(false);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override

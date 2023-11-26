@@ -44,7 +44,7 @@ public class TurretManager {
 	}
 	
 	public boolean plantAt(int r, int c, Turret turret) {
-		if (turretMap[r][c] == null) {
+		if (turretMap[r][c] != null) {
 			return false;
 		}
 		
@@ -64,7 +64,9 @@ public class TurretManager {
 	public void draw(Graphics g) {
 		for (int i = 0; i < turretMap.length; i++) {
 			for (int j = 0; j < turretMap[i].length; j++) {
-				turretMap[i][j].draw(g);
+				if (turretMap[i][j] != null) {
+					turretMap[i][j].draw(g);					
+				}
 			}
 		}
 	}
@@ -87,5 +89,9 @@ public class TurretManager {
 
 	public Turret[][] getTurretMap() {
 		return turretMap;
+	}
+	
+	public Rectangle[][] getPlantArea() {
+		return plantArea;
 	}
 }
