@@ -109,6 +109,7 @@ public class Playing extends GameScene implements SceneMethods {
 		drawUIComponents(g);
 		
 		if (plantingMode) {
+			turretManager.drawPlantArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY, turretToPlant);
 		}
 	}
