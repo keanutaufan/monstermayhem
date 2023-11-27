@@ -48,7 +48,7 @@ public class EnemyManager {
 
 	public void update() {
 		for (Enemy e : enemies) {
-			e.move(0.5f, 0);
+			e.move(GetSpeed(e.getEnemyType()), 0);
 		}
 	}
 	
