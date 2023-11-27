@@ -102,6 +102,7 @@ public class Playing extends GameScene implements SceneMethods {
 
 	public void update() {
 		enemyManager.update();
+		turretManager.update();
 	}
 	
 	@Override
@@ -116,6 +117,7 @@ public class Playing extends GameScene implements SceneMethods {
 		}
 		
 		turretManager.draw(g);
+		
 	}
 
 	public void drawLevel(Graphics g) {
@@ -154,7 +156,6 @@ public class Playing extends GameScene implements SceneMethods {
 								(int)rect.getX(), 
 								(int)rect.getY(), 
 								turretToPlant,
-								100,
 								spriteManager.getSprite(turretToPlant.getValue()));
 						
 						boolean success = turretManager.plantAt(r, c, turret);

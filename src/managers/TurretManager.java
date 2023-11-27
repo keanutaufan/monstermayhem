@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import bullets.Bullet;
+import helpers.LoadSave;
 import turrets.Turret;
 import turrets.TurretTypes;
 
@@ -49,6 +51,7 @@ public class TurretManager {
 		}
 		
 		turretMap[r][c] = turret;
+		turret.shoot();
 		return true;
 	}
 	
@@ -65,7 +68,18 @@ public class TurretManager {
 		for (int i = 0; i < turretMap.length; i++) {
 			for (int j = 0; j < turretMap[i].length; j++) {
 				if (turretMap[i][j] != null) {
-					turretMap[i][j].draw(g);					
+					turretMap[i][j].draw(g);
+					turretMap[i][j].drawBullets(g);
+				}
+			}
+		}
+	}
+	
+	public void update() {
+		for (int i = 0; i < turretMap.length; i++) {
+			for (int j = 0; j < turretMap[i].length; j++) {
+				if (turretMap[i][j] != null) {
+					turretMap[i][j].updateBullets();
 				}
 			}
 		}
