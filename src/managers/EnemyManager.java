@@ -1,11 +1,15 @@
 package managers;
 
+import static helpers.Constants.Enemies.*;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
+import enemies.Crusty;
 import enemies.Enemy;
+import enemies.Gopher;
 import helpers.LoadSave;
 import scenes.Playing;
 
@@ -17,19 +21,28 @@ public class EnemyManager {
 	
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
-		enemyImgs = new BufferedImage[4];
-		addEnemy(new Random().nextInt(10), new Random().nextInt(20));
+		enemyImgs = new BufferedImage[2];
+		addEnemy(9, 3, GOPHER);
+		addEnemy(10, 4, CRUSTY);
 		loadEnemyImgs();
 	}
 	
-	private void addEnemy(int x, int y) {
-		enemies.add(new Enemy(32 * x, 32 * y, 0, 0));
+	private void addEnemy(int x, int y, int enemyType) {
+		switch (enemyType) {
+			case GOPHER:
+				enemies.add(new Gopher(120 * x, (120 * y) - 45, 0));
+				break;
+			case CRUSTY:
+				enemies.add(new Crusty(120 * x, (120 * y) - 45, 0));
+				break;
+		}
 	}
 
 	private void loadEnemyImgs() {
-		BufferedImage atlas= LoadSave.getSpriteAtlas();
-		for (int i = 0; i < 4; i++) {
-			enemyImgs[i] = atlas.getSubimage(32 * i, 32 * 1, 32, 32);
+		BufferedImage atlas= LoadSave.loadImage("enemies.png");
+		
+		for (int i = 0; i < 2; i++) {
+			enemyImgs[i] = atlas.getSubimage(109 * i, 0, 109, 148);
 		}
 	}
 
@@ -46,7 +59,7 @@ public class EnemyManager {
 	}
 
 	private void drawEnemy(Enemy enemy, Graphics g) {
-		g.drawImage(enemyImgs[1], (int)enemy.getX(), (int)enemy.getY(), null);
+		g.drawImage(enemyImgs[enemy.getEnemyType()], (int)enemy.getX(), (int)enemy.getY(), null);
 	}
 	
 }

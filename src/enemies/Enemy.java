@@ -2,7 +2,7 @@ package enemies;
 
 import java.awt.Rectangle;
 
-public class Enemy {
+public abstract class Enemy {
 	
 	private float x, y;
 	private Rectangle bounds;
@@ -15,11 +15,11 @@ public class Enemy {
 		this.y = y;
 		this.ID = ID;
 		this.enemyType = enemyType;
-		bounds= new Rectangle((int)x, (int)y, 32, 32);
+		bounds= new Rectangle((int)x, (int)y, 120, 120);
 	}
 
 	public void move(float x, float y) {
-		this.x += x;
+		this.x -= x;
 		this.y += y;
 	}
 	
