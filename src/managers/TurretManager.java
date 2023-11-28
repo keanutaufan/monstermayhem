@@ -51,7 +51,7 @@ public class TurretManager {
 		}
 		
 		turretMap[r][c] = turret;
-		turret.shoot();
+		
 		return true;
 	}
 	

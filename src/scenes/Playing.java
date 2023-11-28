@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import enemies.Enemy;
 import helpers.LevelBuilder;
 import main.Game;
 import managers.EnemyManager;
@@ -39,6 +41,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private boolean plantingMode;
 	private TurretTypes turretToPlant;
 	private TurretManager turretManager;
+	private ArrayList<Turret> turrets = new ArrayList<>();
 	
 	private int placeholderX;
 	private int placeholderY;
@@ -103,8 +106,9 @@ public class Playing extends GameScene implements SceneMethods {
 	public void update() {
 		enemyManager.update();
 		turretManager.update();
+		attackEnemyIfRange();
 	}
-	
+
 	@Override
 	public void render(Graphics g) {
 		drawLevel(g);
@@ -161,11 +165,31 @@ public class Playing extends GameScene implements SceneMethods {
 						
 						if (success) {
 							setPlantingMode(false);
+							turrets.add(turret);
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	private void attackEnemyIfRange() {
+		for (Turret t : turrets) {
+			for (Enemy e : enemyManager.getEnemies()) {
+				if (e.isAlive()) {
+					if (inRange(t, e)) {
+						t.shoot();
+						e.hurt(1);
+					} else {
+						// Do Nothing
+					}
+				}
+			}
+		}
+	}
+
+	private boolean inRange(Turret t, Enemy e) {
+		return (t.getY() >= e.getY() - 45 && t.getY() <= e.getY() + 45) && (t.getX() + 50 < e.getX());
 	}
 
 	@Override

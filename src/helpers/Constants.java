@@ -57,21 +57,6 @@ public class Constants {
 			return 0;
 		}
 		
-		public static float GetDefaultRange(TurretTypes turretType) {
-			switch (turretType) {
-				case GREEN_TANK:
-					return 666;
-				case DESERT_TANK:
-					return 666;
-				case GRAY_TANK:
-					return 666;
-				case NAVY_TANK:
-					return 666;
-			}
-			
-			return 0;
-		}
-		
 		public static float GetDefaultCooldown(TurretTypes turretType) {
 			switch (turretType) {
 				case GREEN_TANK:

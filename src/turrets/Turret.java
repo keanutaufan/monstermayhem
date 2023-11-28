@@ -10,7 +10,7 @@ import bullets.Bullet;
 
 public class Turret {
 	private int x, y;
-	private float dmg, range, cooldown;
+	private float dmg, cooldown;
 	
 	private BufferedImage image;
 	private Rectangle bounds;
@@ -30,16 +30,11 @@ public class Turret {
 		bullets = new ArrayList<>();
 		
 		setDefaultDmg();
-		setDefaultRange();
 		setDefaultCooldown();
 	}
 	
 	public float getDmg() {
 		return dmg;
-	}
-
-	public float getRange() {
-		return range;
 	}
 
 	public float getCooldown() {
@@ -48,10 +43,6 @@ public class Turret {
 
 	private void setDefaultCooldown() {
 		cooldown = helpers.Constants.Turrets.GetDefaultCooldown(turretType);
-	}
-
-	private void setDefaultRange() {
-		range = helpers.Constants.Turrets.GetDefaultRange(turretType);
 	}
 
 	private void setDefaultDmg() {
