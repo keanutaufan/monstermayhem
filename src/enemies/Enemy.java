@@ -4,11 +4,12 @@ import java.awt.Rectangle;
 
 public abstract class Enemy {
 	
-	private float x, y;
-	private Rectangle bounds;
-	private int health;
-	private int ID;
-	private int enemyType;
+	protected float x, y;
+	protected Rectangle bounds;
+	protected int health;
+	protected int maxHealth;
+	protected int ID;
+	protected int enemyType;
 	
 	public Enemy(float x, float y, int ID, int enemyType) {
 		this.x = x;
@@ -16,8 +17,18 @@ public abstract class Enemy {
 		this.ID = ID;
 		this.enemyType = enemyType;
 		bounds= new Rectangle((int)x, (int)y, 120, 120);
+		setStartHealth();
 	}
 
+	private void setStartHealth() {
+		health = helpers.Constants.Enemies.GetStartHealth(enemyType);
+		maxHealth = health;
+	}
+	
+	public float getHealthBarFloat() {
+		return health /(float) maxHealth;
+	}
+	
 	public void move(float x, float y) {
 		this.x -= x;
 		this.y += y;

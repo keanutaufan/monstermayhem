@@ -64,11 +64,11 @@ public class Playing extends GameScene implements SceneMethods {
 		// maps out to ~11 x 6
 		int[][] bgLayout = {
 				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
+				{ 2, 0, 1, 0, 1, 0, 1, 0, 1, 2, 2 },
 				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
+				{ 2, 0, 1, 0, 1, 0, 1, 0, 1, 2, 2 },
 				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
-				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
-				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
-				{ 2, 1, 0, 1, 0, 1, 0, 1, 0, 2, 2 },
+				{ 2, 0, 1, 0, 1, 0, 1, 0, 1, 2, 2 },
 		};
 		
 		this.bgLayout = bgLayout;
@@ -115,11 +115,10 @@ public class Playing extends GameScene implements SceneMethods {
 			turretManager.drawPlantArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY, turretToPlant);
 		}
-		
 		turretManager.draw(g);
 		
 	}
-
+	
 	public void drawLevel(Graphics g) {
 //		for (int i = 0; i < level.length; i++) {
 //			for (int j = 0; j < level[i].length; j++) {
