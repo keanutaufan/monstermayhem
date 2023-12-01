@@ -7,8 +7,11 @@ import java.util.ArrayList;
 
 import bullets.AlmightyBullet3000;
 import bullets.Bullet;
+import managers.SpriteManager;
 
-public class Turret {
+abstract public class Turret {
+	static final SpriteManager spriteManager = new SpriteManager();
+	
 	private int x, y;
 	private float dmg, cooldown;
 	

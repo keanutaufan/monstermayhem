@@ -4,20 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
-
 import enemies.Enemy;
-import helpers.LevelBuilder;
 import main.Game;
 import managers.EnemyManager;
-import managers.TileManager;
 import managers.TurretManager;
+import turrets.DesertTank;
+import turrets.GrayTank;
+import turrets.GreenTank;
+import turrets.NavyTank;
 import turrets.Turret;
 import turrets.TurretTypes;
 import ui.ImageButton;
@@ -155,11 +150,24 @@ public class Playing extends GameScene implements SceneMethods {
 				for (int c = 0; c < plantArea[r].length; c++) {
 					Rectangle rect = plantArea[r][c];
 					if (rect.contains(x, y)) {
-						Turret turret = new Turret(
-								(int)rect.getX(), 
-								(int)rect.getY(), 
-								turretToPlant,
-								spriteManager.getSprite(turretToPlant.getValue()));
+						Turret turret;
+						switch (turretToPlant) {
+						case GREEN_TANK:
+							turret = new GreenTank((int)rect.getX(), (int)rect.getY());
+							break;
+						case DESERT_TANK:
+							turret = new DesertTank((int)rect.getX(), (int)rect.getY());
+							break;
+						case GRAY_TANK:
+							turret = new GrayTank((int)rect.getX(), (int)rect.getY());
+							break;
+						case NAVY_TANK:
+							turret = new NavyTank((int)rect.getX(), (int)rect.getY());
+							break;
+						default:
+							turret = new GreenTank((int)rect.getX(), (int)rect.getY());
+							break;
+						}
 						
 						boolean success = turretManager.plantAt(r, c, turret);
 						
