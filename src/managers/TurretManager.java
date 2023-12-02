@@ -10,7 +10,8 @@ import turrets.Turret;
 import turrets.TurretTypes;
 
 public class TurretManager {
-	private final Color PLANT_AREA_COLOR = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+	private final Color PLANT_AREA_COLOR = new Color(0.0f, 0.0f, 1.0f, 0.2f);
+	private final Color REMOVE_AREA_COLOR = new Color(1.0f, 0.0f, 0.0f, 0.2f);
 	
 	
 	private Turret[][] turretMap;
@@ -97,8 +98,26 @@ public class TurretManager {
 		}
 	}
 	
+	public void drawRemoveArea(Graphics g) {
+		for (int i = 0; i < plantArea.length; i++) {
+			for (int j = 0; j < plantArea[i].length; j++) {
+				if (turretMap[i][j] != null) {
+					Rectangle rect = plantArea[i][j];
+					g.setColor(REMOVE_AREA_COLOR);
+					g.fillRect(rect.x, rect.y, (int)rect.getWidth(), (int)rect.getHeight());
+				}
+			}
+		}
+	}
+	
+	
+	
 	public void drawPlaceholder(Graphics g, int x, int y, TurretTypes type) {
 		g.drawImage(spriteManager.getSprite(type.getValue()), x - 60, y - 60, null);
+	}
+	
+	public void drawPlaceholder(Graphics g, int x, int y) {
+		g.drawImage(spriteManager.getSprite(13), x - 43, y - 50, null);
 	}
 
 	public Turret[][] getTurretMap() {

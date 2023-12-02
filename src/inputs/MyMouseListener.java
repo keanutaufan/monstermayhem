@@ -57,6 +57,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 				break;
 			case PLAYING:
 				game.getPlaying().setPlantingMode(false);
+				game.getPlaying().setRemoveMode(false);
 				break;
 			case SETTINGS:
 				break;

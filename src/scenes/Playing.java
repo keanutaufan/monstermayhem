@@ -37,6 +37,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private int airdrop;
 	
 	private boolean plantingMode;
+	private boolean removeMode;
 	private TurretTypes turretToPlant;
 	private TurretManager turretManager;
 	private ArrayList<Turret> turrets = new ArrayList<>();
@@ -48,6 +49,7 @@ public class Playing extends GameScene implements SceneMethods {
 		super(game);
 		airdrop = 0;
 		plantingMode = false;
+		removeMode = false;
 //		level = LevelBuilder.getLevelData();
 //		tileManager = new TileManager();
 		enemyManager = new EnemyManager(this);		
@@ -113,12 +115,16 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager.draw(g);
 		drawUIComponents(g);
 		
+		turretManager.draw(g);
+		
 		if (plantingMode) {
 			turretManager.drawPlantArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY, turretToPlant);
 		}
-		turretManager.draw(g);
-		
+		else if (removeMode) {
+			turretManager.drawRemoveArea(g);
+			turretManager.drawPlaceholder(g, placeholderX, placeholderY);
+		}
 	}
 	
 	public void drawLevel(Graphics g) {
@@ -142,10 +148,15 @@ public class Playing extends GameScene implements SceneMethods {
 		buyTurretButtons.forEach(b -> {
 			if (b.getBounds().contains(x, y)) {
 				setPlantingMode(true);
+				setRemoveMode(false);
 				turretToPlant = b.getType();
-				return;
 			}
 		});
+		
+		if (removeTurretButton.getBounds().contains(x, y)) {
+			setRemoveMode(true);
+			setPlantingMode(false);
+		}
 		
 		if (plantingMode) {
 			Rectangle[][] plantArea = turretManager.getPlantArea();
@@ -176,12 +187,35 @@ public class Playing extends GameScene implements SceneMethods {
 						
 						if (success) {
 							setPlantingMode(false);
-							turrets.add(turret);
+							turrets.add(turretManager.getTurretMap()[r][c]);
 						}
 					}
 				}
 			}
 		}
+		
+		else if (removeMode) {
+			Rectangle[][] plantArea = turretManager.getPlantArea();
+			for (int r = 0; r < plantArea.length; r++) {
+				for (int c = 0; c < plantArea[r].length; c++) {
+					Rectangle rect = plantArea[r][c];
+					if (rect.contains(x, y)) {					
+						boolean success = turretManager.removeAt(r, c);
+						
+						if (success) {
+							setRemoveMode(false);
+							for (int i = 0; i < turrets.size(); i++) {
+								if (turrets.get(i).getBounds().contains(rect)) {
+									turrets.remove(i);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
 	}
 	
 	private void attackEnemyIfRange() {
@@ -234,6 +268,10 @@ public class Playing extends GameScene implements SceneMethods {
 	
 	public void setPlantingMode(boolean plantingMode) {
 		this.plantingMode = plantingMode;
+	}
+	
+	public void setRemoveMode(boolean removeMode) {
+		this.removeMode = removeMode;
 	}
 
 }
