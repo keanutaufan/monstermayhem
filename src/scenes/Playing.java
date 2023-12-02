@@ -10,6 +10,7 @@ import java.util.Iterator;
 import bullets.Bullet;
 import enemies.Enemy;
 import main.Game;
+import managers.AirdropManager;
 import managers.EnemyManager;
 import managers.TurretManager;
 import turrets.DesertTank;
@@ -42,6 +43,8 @@ public class Playing extends GameScene implements SceneMethods {
 	private TurretManager turretManager;
 	private ArrayList<Turret> turrets = new ArrayList<>();
 	
+	private AirdropManager airdropManager;
+	
 	private int placeholderX;
 	private int placeholderY;
 	
@@ -55,11 +58,12 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager = new EnemyManager(this);		
 		spriteManager = new SpriteManager();
 		turretManager = new TurretManager(spriteManager);
+		airdropManager = new AirdropManager();
 		
 		initBGLayout();
 		initUIComponents();
 		
-		
+		airdropManager.spawnAt(300, -100);
 	}
 	
 	private void initBGLayout() {
@@ -98,7 +102,8 @@ public class Playing extends GameScene implements SceneMethods {
 		g.drawImage(spriteManager.getSprite(12), 110, 0, null);
 		
 		g.setColor(Color.WHITE);
-		g.drawString(airdrop + "", 150, 80);
+		int textWidth = g.getFontMetrics().stringWidth(airdrop + "");
+		g.drawString(airdrop + "", 152 - textWidth / 2, 80);
 		
 		removeTurretButton.draw(g);
 	}
@@ -107,6 +112,7 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager.update();
 		turretManager.update();
 		attackEnemyIfRange();
+		airdropManager.update();
 	}
 
 	@Override
@@ -125,6 +131,8 @@ public class Playing extends GameScene implements SceneMethods {
 			turretManager.drawRemoveArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY);
 		}
+		
+		airdropManager.draw(g);
 	}
 	
 	public void drawLevel(Graphics g) {
@@ -156,6 +164,10 @@ public class Playing extends GameScene implements SceneMethods {
 		if (removeTurretButton.getBounds().contains(x, y)) {
 			setRemoveMode(true);
 			setPlantingMode(false);
+		}
+		
+		if (!(removeMode || plantingMode)) {
+			airdrop += airdropManager.collectAirdropAt(x, y);
 		}
 		
 		if (plantingMode) {
