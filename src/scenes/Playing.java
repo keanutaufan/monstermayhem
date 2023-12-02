@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import bullets.Bullet;
 import enemies.Enemy;
 import main.Game;
 import managers.EnemyManager;
@@ -187,7 +190,14 @@ public class Playing extends GameScene implements SceneMethods {
 				if (e.isAlive()) {
 					if (inRange(t, e)) {
 						t.shoot();
-						e.hurt(1);
+						
+						for (Bullet b : t.getBullets()) {
+							if (b.hit(e)) {
+								e.hurt(t.getDmg());
+								t.getBullets().remove(b);
+								break;
+							}
+						}
 					} else {
 						// Do Nothing
 					}

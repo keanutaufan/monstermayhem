@@ -17,7 +17,7 @@ public abstract class Enemy {
 		this.y = y;
 		this.ID = ID;
 		this.enemyType = enemyType;
-		bounds= new Rectangle((int)x, (int)y, 120, 120);
+		bounds = new Rectangle((int)x, (int)y, 120, 120);
 		setStartHealth();
 	}
 
@@ -30,7 +30,7 @@ public abstract class Enemy {
 		return health /(float) maxHealth;
 	}
 	
-	public void hurt(int dmg) {
+	public void hurt(float dmg) {
 		this.health -= dmg;
 		if (health <= 0) {
 			alive = false;
@@ -40,8 +40,9 @@ public abstract class Enemy {
 	public void move(float x, float y) {
 		this.x -= x;
 		this.y += y;
+		bounds = new Rectangle((int) this.x, (int) this.y, 120, 120);
 	}
-	
+
 	public float getX() {
 		return x;
 	}

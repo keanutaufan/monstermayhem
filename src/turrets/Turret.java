@@ -21,6 +21,8 @@ abstract public class Turret {
 	
 	private ArrayList<Bullet> bullets;
 	
+	private long lastShootTime;
+	
 	public Turret(int x, int y, TurretTypes turretType, BufferedImage image) {
 		this.x = x;
 		this.y = y;
@@ -68,7 +70,12 @@ abstract public class Turret {
 	}
 	
 	public void shoot() {
-		bullets.add(new AlmightyBullet3000(x + 100, y + 30));
+		long currentTime = System.currentTimeMillis();
+		
+		if (currentTime - lastShootTime >= cooldown) {
+			bullets.add(new AlmightyBullet3000(x + 100, y + 30));
+			lastShootTime = currentTime;
+		}
 	}
 	
 	public void drawBullets(Graphics g) {

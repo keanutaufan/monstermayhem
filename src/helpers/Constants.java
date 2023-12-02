@@ -45,13 +45,13 @@ public class Constants {
 		public static float GetStartDmg(TurretTypes turretType) {
 			switch (turretType) {
 				case GREEN_TANK:
-					return 20;
+					return 10;
 				case DESERT_TANK:
-					return 35;
+					return 15;
 				case GRAY_TANK:
-					return 50;
+					return 20;
 				case NAVY_TANK:
-					return 75;
+					return 25;
 			}
 			
 			return 0;
@@ -60,13 +60,13 @@ public class Constants {
 		public static float GetDefaultCooldown(TurretTypes turretType) {
 			switch (turretType) {
 				case GREEN_TANK:
-					return 10;
+					return 2000;
 				case DESERT_TANK:
-					return 10;
+					return 2000;
 				case GRAY_TANK:
-					return 10;
+					return 2000;
 				case NAVY_TANK:
-					return 10;
+					return 2000;
 			}
 			
 			return 0;
