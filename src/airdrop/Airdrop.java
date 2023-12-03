@@ -4,7 +4,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Airdrop {
+import helpers.LoadSave;
+
+abstract public class Airdrop {
+	static final BufferedImage images = LoadSave.loadImage("airdrops.png");
+	
 	private double x, y;
 	private int value;
 	private BufferedImage image;

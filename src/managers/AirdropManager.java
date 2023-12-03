@@ -4,6 +4,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import airdrop.Airdrop;
+import airdrop.AirdropTypes;
+import airdrop.CrystalAirdrop;
+import airdrop.GoldenAirdrop;
+import airdrop.SilverAirdrop;
+import airdrop.WoodenAirdrop;
 
 public class AirdropManager {
 	static final SpriteManager spriteManager = new SpriteManager();
@@ -29,8 +34,23 @@ public class AirdropManager {
 		airdrops.forEach(a -> a.draw(g));
 	}
 	
-	public void spawnAt(int x, int y) {
-		airdrops.add(new Airdrop(x, y, 100, spriteManager.getSprite(13), 1));
+	public void spawnAt(int x, int y, AirdropTypes type) {
+		switch(type) {
+		case WOODEN_AIRDROP:
+			airdrops.add(new WoodenAirdrop(x, y));
+			break;
+		case SILVER_AIRDROP:
+			airdrops.add(new SilverAirdrop(x, y));
+			break;
+		case GOLDEN_AIRDROP:
+			airdrops.add(new GoldenAirdrop(x, y));
+			break;
+		case CRYSTAL_AIRDROP:
+			airdrops.add(new CrystalAirdrop(x, y));
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public int collectAirdropAt(int x, int y) {
