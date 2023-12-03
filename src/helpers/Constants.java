@@ -10,13 +10,19 @@ public class Constants {
 		
 		public static final int GOPHER = 0;
 		public static final int CRUSTY = 1;
+		public static final int DUKE = 2;
+		public static final int DASH = 3;
 		
 		public static float GetSpeed(int enemyType) {
 			switch (enemyType) {
 			case GOPHER:
-				return 0.7f;
-			case CRUSTY:
 				return 0.5f;
+			case CRUSTY:
+				return 0.3f;
+			case DUKE:
+				return 0.4f;
+			case DASH:
+				return 0.8f;
 			}
 			
 			return 0;
@@ -25,9 +31,13 @@ public class Constants {
 		public static int GetStartHealth(int enemyType) {
 			switch (enemyType) {
 			case GOPHER:
-				return 69;
+				return 75;
 			case CRUSTY:
+				return 200;
+			case DUKE:
 				return 150;
+			case DASH:
+				return 60;
 			}
 			
 			return 0;
