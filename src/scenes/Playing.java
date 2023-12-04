@@ -14,6 +14,7 @@ import main.Game;
 import managers.AirdropManager;
 import managers.EnemyManager;
 import managers.TurretManager;
+import managers.WaveManager;
 import turrets.DesertTank;
 import turrets.GrayTank;
 import turrets.GreenTank;
@@ -34,6 +35,8 @@ public class Playing extends GameScene implements SceneMethods {
 	private SpriteManager spriteManager;
 	private ArrayList<TurretButton> buyTurretButtons;
 	private ImageButton removeTurretButton;
+	
+	private WaveManager waveManager;
 	
 	private int[][] bgLayout;
 	private int airdrop;
@@ -60,6 +63,7 @@ public class Playing extends GameScene implements SceneMethods {
 		spriteManager = new SpriteManager();
 		turretManager = new TurretManager(spriteManager);
 		airdropManager = new AirdropManager();
+		waveManager = new WaveManager(this);
 		
 		initBGLayout();
 		initUIComponents();
@@ -288,6 +292,10 @@ public class Playing extends GameScene implements SceneMethods {
 	
 	public void setRemoveMode(boolean removeMode) {
 		this.removeMode = removeMode;
+	}
+	
+	public WaveManager getWaveManager() {
+		return waveManager;
 	}
 
 }

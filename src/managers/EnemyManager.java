@@ -27,10 +27,12 @@ public class EnemyManager {
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
-		addEnemy(9, 3, GOPHER);
-		addEnemy(10, 4, CRUSTY);
-		addEnemy(10, 2, DUKE);
-		addEnemy(10, 4, DASH);
+		
+//		addEnemy(9, 3, GOPHER);
+//		addEnemy(10, 4, CRUSTY);
+//		addEnemy(10, 2, DUKE);
+//		addEnemy(10, 4, DASH);
+		
 		loadEnemyImgs();
 	}
 	
@@ -60,13 +62,38 @@ public class EnemyManager {
 	}
 
 	public void update() {
+		
+		updateWaveManager();
+		
+		if (isTimeForNewEnemy()) {
+			spawnEnemy(10, new Random().nextInt(5) + 1);
+		}
+		
 		for (Enemy e : enemies) {
 			if (e.isAlive()) {
 				e.move(GetSpeed(e.getEnemyType()), 0);
 			}
 		}
+		
 	}
 	
+	private void updateWaveManager() {
+		playing.getWaveManager().update();
+	}
+
+	private void spawnEnemy(int x, int y) {
+		addEnemy(x, y, playing.getWaveManager().getNextEnemy());
+	}
+
+	private boolean isTimeForNewEnemy() {
+		if (playing.getWaveManager().isTimeForNewEnemy()) {
+			if (playing.getWaveManager().areThereMoreEnemiesInWave()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void draw(Graphics g) {
 		for (Enemy e : enemies) {
 			if (e.isAlive()) {
