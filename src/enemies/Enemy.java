@@ -42,7 +42,12 @@ public abstract class Enemy {
 		this.y += y;
 		bounds = new Rectangle((int) this.x, (int) this.y, 120, 120);
 	}
-
+	
+	public void kill() {
+		alive = false;
+		health = 0;
+	}
+	
 	public float getX() {
 		return x;
 	}

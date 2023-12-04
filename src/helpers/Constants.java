@@ -20,9 +20,9 @@ public class Constants {
 			case CRUSTY:
 				return 0.3f;
 			case DUKE:
-				return 0.4f;
+				return 0.6f;
 			case DASH:
-				return 0.8f;
+				return 1f;
 			}
 			
 			return 0;
@@ -33,11 +33,11 @@ public class Constants {
 			case GOPHER:
 				return 75;
 			case CRUSTY:
-				return 200;
+				return 250;
 			case DUKE:
 				return 150;
 			case DASH:
-				return 60;
+				return 100;
 			}
 			
 			return 0;

@@ -36,7 +36,7 @@ public class EnemyManager {
 		loadEnemyImgs();
 	}
 	
-	private void addEnemy(int x, int y, int enemyType) {
+	public void addEnemy(int x, int y, int enemyType) {
 		switch (enemyType) {
 			case GOPHER:
 				enemies.add(new Gopher(120 * x, (120 * y) - 45, 0));
@@ -63,35 +63,16 @@ public class EnemyManager {
 
 	public void update() {
 		
-		updateWaveManager();
-		
-		if (isTimeForNewEnemy()) {
-			spawnEnemy(10, new Random().nextInt(5) + 1);
-		}
-		
 		for (Enemy e : enemies) {
+			if (e.getX() <= 20) {
+				e.kill();
+				// TODO: Game Over Screen  
+			}
 			if (e.isAlive()) {
 				e.move(GetSpeed(e.getEnemyType()), 0);
 			}
 		}
 		
-	}
-	
-	private void updateWaveManager() {
-		playing.getWaveManager().update();
-	}
-
-	private void spawnEnemy(int x, int y) {
-		addEnemy(x, y, playing.getWaveManager().getNextEnemy());
-	}
-
-	private boolean isTimeForNewEnemy() {
-		if (playing.getWaveManager().isTimeForNewEnemy()) {
-			if (playing.getWaveManager().areThereMoreEnemiesInWave()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public void draw(Graphics g) {

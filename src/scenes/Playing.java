@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import airdrop.AirdropTypes;
 import bullets.Bullet;
@@ -117,10 +118,58 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	public void update() {
+		waveManager.update();
+		
+		if (areAllEnemiesDead() && areThereMoreWaves()) {
+			waveManager.startWaveTimer();
+			if (isWaveTimerOver()) {
+				waveManager.increaseWaveIndex();
+				enemyManager.getEnemies().clear();
+				waveManager.resetEnemyIndex();
+			}
+		}
+		
+		if (isTimeForNewEnemy()) {
+			spawnEnemy(10, new Random().nextInt(5) + 1);
+		}
+		
 		enemyManager.update();
 		turretManager.update();
 		attackEnemyIfRange();
 		airdropManager.update();
+	}
+	
+	private boolean isWaveTimerOver() {
+		return waveManager.isWaveTimerOver();
+	}
+
+	private boolean areThereMoreWaves() {
+		return waveManager.areThereMoreWaves();
+	}
+
+	private boolean areAllEnemiesDead() {
+		if (waveManager.areThereMoreEnemiesInWave()) {
+			return false;
+		}
+		for (Enemy enemy : enemyManager.getEnemies()) {
+			if (enemy.isAlive()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void spawnEnemy(int x, int y) {
+		enemyManager.addEnemy(x, y, waveManager.getNextEnemy());
+	}
+
+	private boolean isTimeForNewEnemy() {
+		if (waveManager.isTimeForNewEnemy()) {
+			if (waveManager.areThereMoreEnemiesInWave()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
