@@ -31,6 +31,7 @@ public class Playing extends GameScene implements SceneMethods {
 //	private int[][] level;
 //	private TileManager tileManager;
 	private final Color UI_BG_COLOR = new Color(189, 108, 74);
+	private final Color UI_DISABLED_COLOR = new Color(0.0f, 0.0f, 0.0f, 0.4f);
 	
 	private EnemyManager enemyManager;
 	private SpriteManager spriteManager;
@@ -106,7 +107,13 @@ public class Playing extends GameScene implements SceneMethods {
 	private void drawUIComponents(Graphics g) {
 		g.setColor(UI_BG_COLOR);
 		g.fillRect(100, 0, 560, 100);
-		buyTurretButtons.forEach(b -> b.draw(g));
+		buyTurretButtons.forEach(b -> {
+			b.draw(g);
+			if (b.getType().getCost() > airdrop) {
+				g.setColor(UI_DISABLED_COLOR);
+				g.fillRect(b.getBounds().x, b.getBounds().y, b.getBounds().width, b.getBounds().height);
+			}
+		});
 		
 		g.drawImage(spriteManager.getSprite(12), 110, 0, null);
 		
@@ -212,9 +219,11 @@ public class Playing extends GameScene implements SceneMethods {
 	public void handleMouseClick(int x, int y) {
 		buyTurretButtons.forEach(b -> {
 			if (b.getBounds().contains(x, y)) {
-				setPlantingMode(true);
-				setRemoveMode(false);
-				turretToPlant = b.getType();
+				if (airdrop >= b.getType().getCost()) {
+					setPlantingMode(true);
+					setRemoveMode(false);
+					turretToPlant = b.getType();					
+				}
 			}
 		});
 		
@@ -257,6 +266,7 @@ public class Playing extends GameScene implements SceneMethods {
 						if (success) {
 							setPlantingMode(false);
 							turrets.add(turretManager.getTurretMap()[r][c]);
+							airdrop -= turretToPlant.getCost();
 						}
 					}
 				}
