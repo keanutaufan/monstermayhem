@@ -32,6 +32,10 @@ public class Render {
 		case SETTINGS:
 			game.getSettings().render(g);
 			break;
+			
+		case GAME_OVER:
+			game.getGameOver().render(g);
+			break;
 		}
 		
 	}
