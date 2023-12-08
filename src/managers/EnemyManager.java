@@ -14,6 +14,7 @@ import enemies.Duke;
 import enemies.Enemy;
 import enemies.Gopher;
 import helpers.LoadSave;
+import main.GameStates;
 import scenes.Playing;
 
 public class EnemyManager {
@@ -66,7 +67,7 @@ public class EnemyManager {
 		for (Enemy e : enemies) {
 			if (e.getX() <= 20) {
 				e.kill();
-				// TODO: Game Over Screen  
+				GameStates.gameState = GameStates.GAME_OVER;
 			}
 			if (e.isAlive()) {
 				e.move(GetSpeed(e.getEnemyType()), 0);
@@ -101,6 +102,10 @@ public class EnemyManager {
 	
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
+	}
+
+	public void reset() {
+		enemies.clear();
 	}
 	
 }

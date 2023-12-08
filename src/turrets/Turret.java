@@ -97,4 +97,9 @@ abstract public class Turret {
 	public int getY() {
 		return y;
 	}
+	
+	public void reset() {
+		bullets.clear();
+	}
+	
 }

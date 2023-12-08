@@ -357,4 +357,14 @@ public class Playing extends GameScene implements SceneMethods {
 		return waveManager;
 	}
 
+	public void resetEverything() {
+		enemyManager.reset();
+		waveManager.reset();
+		airdrop = 0;
+		turretManager.reset();
+		for (Turret t : turrets) {
+			t.reset();
+		}
+	}
+
 }

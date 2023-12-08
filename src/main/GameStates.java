@@ -7,5 +7,5 @@ public enum GameStates {
 	SETTINGS,
 	GAME_OVER;
 	
-	public static GameStates gameState = GAME_OVER;
+	public static GameStates gameState = MENU;
 }

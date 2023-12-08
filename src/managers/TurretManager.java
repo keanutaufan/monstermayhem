@@ -127,4 +127,17 @@ public class TurretManager {
 	public Rectangle[][] getPlantArea() {
 		return plantArea;
 	}
+	
+	public void reset() {
+		Turret[][] turretMap = {
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null },
+		};
+		
+		this.turretMap = turretMap;
+	}
+	
 }
