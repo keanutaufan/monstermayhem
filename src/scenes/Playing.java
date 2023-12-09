@@ -70,10 +70,10 @@ public class Playing extends GameScene implements SceneMethods {
 		initBGLayout();
 		initUIComponents();
 		
-		airdropManager.spawnAt(300, -100, AirdropTypes.SILVER_AIRDROP);
-		airdropManager.spawnAt(500, -100, AirdropTypes.WOODEN_AIRDROP);
-		airdropManager.spawnAt(100, -100, AirdropTypes.GOLDEN_AIRDROP);
-		airdropManager.spawnAt(400, -100, AirdropTypes.CRYSTAL_AIRDROP);
+//		airdropManager.spawnAt(300, -100, AirdropTypes.SILVER_AIRDROP);
+//		airdropManager.spawnAt(500, -100, AirdropTypes.WOODEN_AIRDROP);
+//		airdropManager.spawnAt(100, -100, AirdropTypes.GOLDEN_AIRDROP);
+//		airdropManager.spawnAt(400, -100, AirdropTypes.CRYSTAL_AIRDROP);
 	}
 	
 	private void initBGLayout() {

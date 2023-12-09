@@ -17,26 +17,13 @@ public class AirdropManager {
 	static final SpriteManager spriteManager = new SpriteManager();
 	private ArrayList<Airdrop> airdrops;
 	
-	private int currentCycleIndex = 0;
-    private int currentAirdropIndex = 0;
     private int airdropSpawnTick = 0;
     private int airdropSpawnTickLimit = 60 * 10;
     private Random random = new Random();
-    private ArrayList<AirdropCycle> airdropCycles;
 	
 	public AirdropManager() {
 		airdrops = new ArrayList<>();
-		airdropCycles = createAirdropCycles();
 	}
-	
-	private ArrayList<AirdropCycle> createAirdropCycles() {
-		ArrayList<AirdropCycle> cycles = new ArrayList<>();
-		
-        cycles.add(new AirdropCycle(new ArrayList<>(Arrays.asList(AirdropTypes.WOODEN_AIRDROP))));
-   
-        return cycles;
-	}
-
 	public void update() {
 		airdropSpawnTick++;
 
@@ -95,22 +82,21 @@ public class AirdropManager {
 	}
 	
 	private void spawnAirdrop() {
-        AirdropCycle currentCycle = airdropCycles.get(currentCycleIndex);
-        AirdropTypes airdropType = currentCycle.getAirdropList().get(currentAirdropIndex);
+		double randomValue = random.nextDouble() * 100;
 
         int spawnX = random.nextInt(1280);
         int spawnY = -100;
 
-        spawnAt(spawnX, spawnY, airdropType);
-
-        currentAirdropIndex++;
-        if (currentAirdropIndex >= currentCycle.getAirdropList().size()) {
-            currentAirdropIndex = 0;
-            currentCycleIndex++;
-            if (currentCycleIndex >= airdropCycles.size()) {
-                currentCycleIndex = 0;
-            }
+        if (randomValue < 90) {
+        	spawnAt(spawnX, spawnY, AirdropTypes.WOODEN_AIRDROP);
+        } else if (randomValue < 98) {
+        	spawnAt(spawnX, spawnY, AirdropTypes.SILVER_AIRDROP);
+        } else if (randomValue < 99.8) {
+        	spawnAt(spawnX, spawnY, AirdropTypes.GOLDEN_AIRDROP);
+        } else {
+        	spawnAt(spawnX, spawnY, AirdropTypes.CRYSTAL_AIRDROP);
         }
+     
     }
 	
 	public ArrayList<Airdrop> getAirdrops() {
@@ -119,10 +105,7 @@ public class AirdropManager {
 	
 	public void reset() {
 		airdrops.clear();
-		currentCycleIndex = 0;
-	    currentAirdropIndex = 0;
-	    airdropSpawnTick = 0;
-		airdropCycles = createAirdropCycles();
+		airdropSpawnTick = 0;
 	}
 	
 }
