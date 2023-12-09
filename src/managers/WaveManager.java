@@ -2,6 +2,8 @@ package managers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Random;
 
 import events.Wave;
 import scenes.Playing;
@@ -16,6 +18,7 @@ public class WaveManager {
 	private int waveTickLimit = 60 * 5; // time until next wave, 5 seconds
 	private int waveTick = 0;
 	public boolean waveStartTimer, waveTickTimerOver;
+	private Random random = new Random();
 	
 	public WaveManager(Playing playing) {
 		this.playing = playing;
@@ -32,6 +35,15 @@ public class WaveManager {
 				waveTickTimerOver = true;
 			}
 		}
+		if (waveIndex >= 9) {
+			ArrayList<Integer> bonusEnemies = new ArrayList<>();
+			
+			for (int i = 0; i < random.nextInt(20) + 5; i++) {
+				bonusEnemies.add(random.nextInt(4));
+			}
+			
+			waves.add(new Wave(bonusEnemies));
+		}
 	}
 	
 	public void increaseWaveIndex() {
@@ -46,39 +58,36 @@ public class WaveManager {
 	}
 	
 	private void createWaves() {
-		// Wave 0: Pre-intro
+		// Wave 0: Intro
 		waves.add(new Wave(new ArrayList<>(Arrays.asList(0))));
 		
-		// Wave 1: Easy introduction
+		// Wave 1: Early Game
         waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 0, 0))));
         
         // Wave 2: Introducing tanky enemies
         waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 1, 0, 1))));
 
-        // Wave 3: Mix of common and balanced enemies
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 2, 0, 2, 0))));
+        // Wave 3: Mix of enemies and new enemiy type
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 2, 0, 2, 0, 1, 1))));
 
         // Wave 4: Increased number of tanky enemies
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(1, 1, 1))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(1, 1, 1, 2, 0, 2, 0, 1))));
 
         // Wave 5: Faster enemies introduced
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(2, 0, 2, 0, 3))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(2, 0, 3, 0, 3, 1, 2, 1, 3, 1, 3))));
 
-        // Wave 6: Mix of tanky and balanced enemies
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(1, 2, 1, 2, 1))));
+        // Wave 6: Faster enemies with some tanky ones
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(3, 0, 3, 1, 0, 0, 1, 2, 3, 2, 1, 0))));
 
-        // Wave 7: Faster enemies with some tanky ones
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(3, 0, 3, 1, 0))));
-
-        // Wave 8: Intense mix of all enemy types
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 2, 1, 0))));
-
-        // Wave 9: More emphasis on balanced enemies
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(2, 0, 2, 1, 2, 0))));
-
-        // Wave 10: Final challenging wave
-        waves.add(new Wave(new ArrayList<>(Arrays.asList(3, 2, 1, 0, 3, 2, 1, 0))));
-
+	    // Wave 7: Intense mix of all enemy types
+	    waves.add(new Wave(new ArrayList<>(Arrays.asList(0, 1, 2, 3, 2, 1, 0, 0, 1, 2, 3, 2, 1, 0))));
+	
+	    // Wave 8: More emphasis on balanced enemies
+	    waves.add(new Wave(new ArrayList<>(Arrays.asList(2, 0, 2, 1, 2, 0, 1, 2, 1, 2, 1, 0, 2, 1, 2, 2))));
+	
+	    // Wave 9: Final challenging wave
+	    waves.add(new Wave(new ArrayList<>(Arrays.asList(3, 2, 1, 0, 3, 2, 1, 0, 0, 1, 2, 3, 2, 1, 0, 3, 2, 1, 0, 3))));
+	     
 	}
 
 	public ArrayList<Wave> getWaves() {

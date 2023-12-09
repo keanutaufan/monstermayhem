@@ -11,7 +11,6 @@ import airdrop.CrystalAirdrop;
 import airdrop.GoldenAirdrop;
 import airdrop.SilverAirdrop;
 import airdrop.WoodenAirdrop;
-import events.AirdropCycle;
 
 public class AirdropManager {
 	static final SpriteManager spriteManager = new SpriteManager();
