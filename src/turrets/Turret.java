@@ -14,6 +14,7 @@ abstract public class Turret {
 	
 	private int x, y;
 	private float dmg, cooldown;
+	private int health;
 	
 	private BufferedImage image;
 	private Rectangle bounds;
@@ -23,9 +24,10 @@ abstract public class Turret {
 	
 	private long lastShootTime;
 	
-	public Turret(int x, int y, TurretTypes turretType, BufferedImage image) {
+	public Turret(int x, int y, int initialHealth, TurretTypes turretType, BufferedImage image) {
 		this.x = x;
 		this.y = y;
+		this.health = initialHealth;
 		
 		this.turretType = turretType;
 		
@@ -82,6 +84,10 @@ abstract public class Turret {
 		bullets.forEach(b -> b.draw(g));
 	}
 	
+	public void hurt(int damage) {
+		health -= damage;
+	}
+	
 	public Rectangle getBounds() {
 		return bounds;
 	}
@@ -96,6 +102,10 @@ abstract public class Turret {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public int getHealth() {
+		return health;
 	}
 	
 	public void reset() {

@@ -81,6 +81,9 @@ public class TurretManager {
 			for (int j = 0; j < turretMap[i].length; j++) {
 				if (turretMap[i][j] != null) {
 					turretMap[i][j].updateBullets();
+					if (turretMap[i][j].getHealth() <= 0) {
+						turretMap[i][j] = null;
+					}
 				}
 			}
 		}

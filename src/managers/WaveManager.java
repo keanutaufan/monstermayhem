@@ -35,7 +35,7 @@ public class WaveManager {
 				waveTickTimerOver = true;
 			}
 		}
-		if (waveIndex >= 9) {
+		if (waveIndex >= waves.size()) {
 			ArrayList<Integer> bonusEnemies = new ArrayList<>();
 			
 			for (int i = 0; i < random.nextInt(20) + 5; i++) {

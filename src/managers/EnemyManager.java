@@ -16,6 +16,7 @@ import enemies.Gopher;
 import helpers.LoadSave;
 import main.GameStates;
 import scenes.Playing;
+import turrets.Turret;
 
 public class EnemyManager {
 
@@ -70,7 +71,29 @@ public class EnemyManager {
 				GameStates.gameState = GameStates.GAME_OVER;
 			}
 			if (e.isAlive()) {
-				e.move(GetSpeed(e.getEnemyType()), 0);
+				if (!e.isAttacking()) {
+					e.move(GetSpeed(e.getEnemyType()), 0);					
+				}
+				
+				boolean attacking = false;
+				
+				Turret[][] turrets = playing.getTurretManager().getTurretMap();
+				for (int i = 0; i < turrets.length; i++) {
+					for (int j = 0; j < turrets[i].length; j++) {
+						Turret t = turrets[i][j];
+						if (t == null) {
+							continue;
+						}
+						if (t.getX() + t.getBounds().width >= e.getX()) {
+							e.setAttacking(true);
+							e.attack(t);
+							attacking = true;
+						}
+					}
+				}
+
+				
+				e.setAttacking(attacking);
 			}
 		}
 		

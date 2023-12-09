@@ -2,6 +2,8 @@ package enemies;
 
 import java.awt.Rectangle;
 
+import turrets.Turret;
+
 public abstract class Enemy {
 	
 	protected float x, y;
@@ -11,6 +13,7 @@ public abstract class Enemy {
 	protected int ID;
 	protected int enemyType;
 	protected boolean alive = true;
+	protected boolean attacking = false;
 	
 	public Enemy(float x, float y, int ID, int enemyType) {
 		this.x = x;
@@ -35,6 +38,10 @@ public abstract class Enemy {
 		if (health <= 0) {
 			alive = false;
 		}
+	}
+	
+	public void attack(Turret turret) {
+		turret.hurt(1);
 	}
 	
 	public void move(float x, float y) {
@@ -74,6 +81,14 @@ public abstract class Enemy {
 	
 	public boolean isAlive() {
 		return alive;
+	}
+	
+	public boolean isAttacking() {
+		return attacking;
+	}
+	
+	public void setAttacking(boolean attacking) {
+		this.attacking = attacking;
 	}
 	
 }

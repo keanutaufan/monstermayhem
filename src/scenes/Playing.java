@@ -356,6 +356,10 @@ public class Playing extends GameScene implements SceneMethods {
 	public WaveManager getWaveManager() {
 		return waveManager;
 	}
+	
+	public TurretManager getTurretManager() {
+		return turretManager;
+	}
 
 	public void resetEverything() {
 		enemyManager.reset();
