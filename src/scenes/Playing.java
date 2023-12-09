@@ -365,6 +365,7 @@ public class Playing extends GameScene implements SceneMethods {
 		for (Turret t : turrets) {
 			t.reset();
 		}
+		airdropManager.reset();
 	}
 
 }

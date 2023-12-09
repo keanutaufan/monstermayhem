@@ -13,7 +13,7 @@ public class WaveManager {
 	private int enemySpawnTickLimit = 60 * 5; // spawn enemy every 5 seconds 
 	private int enemySpawnTick = -(60 * 5); // headstart
 	private int enemyIndex, waveIndex;
-	private int waveTickLimit = 60 * 7; // time until next wave, 7 seconds
+	private int waveTickLimit = 60 * 5; // time until next wave, 5 seconds
 	private int waveTick = 0;
 	public boolean waveStartTimer, waveTickTimerOver;
 	
