@@ -65,7 +65,7 @@ public class Menu extends GameScene implements SceneMethods {
 		if (btnPlay.getBounds().contains(x, y)) {
 			GameStates.gameState = GameStates.PLAYING;
 		} else if (btnSettings.getBounds().contains(x, y)) {
-			
+			GameStates.gameState = GameStates.SETTINGS;
 		} else if (btnExit.getBounds().contains(x, y)) {
 			System.exit(0);
 		}
