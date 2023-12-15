@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import bullets.AlmightyBullet3000;
 import bullets.Bullet;
-import helpers.SoundHandler;
 import managers.SpriteManager;
 
 abstract public class Turret {
