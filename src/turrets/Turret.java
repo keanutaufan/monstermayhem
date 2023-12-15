@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import bullets.AlmightyBullet3000;
 import bullets.Bullet;
+import helpers.SoundHandler;
 import managers.SpriteManager;
 
 abstract public class Turret {
@@ -73,7 +74,7 @@ abstract public class Turret {
 	
 	public void shoot() {
 		long currentTime = System.currentTimeMillis();
-		
+
 		if (currentTime - lastShootTime >= cooldown) {
 			bullets.add(new AlmightyBullet3000(x + 100, y + 30));
 			lastShootTime = currentTime;

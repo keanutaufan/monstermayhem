@@ -11,6 +11,7 @@ import java.util.Random;
 import airdrop.AirdropTypes;
 import bullets.Bullet;
 import enemies.Enemy;
+import helpers.SoundHandler;
 import main.Game;
 import managers.AirdropManager;
 import managers.EnemyManager;
@@ -306,6 +307,7 @@ public class Playing extends GameScene implements SceneMethods {
 						
 						for (Bullet b : t.getBullets()) {
 							if (b.hit(e)) {
+								SoundHandler.RunSound("assets/oof_sound.wav");
 								e.hurt(t.getDmg());
 								t.getBullets().remove(b);
 								break;
