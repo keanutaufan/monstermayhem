@@ -84,7 +84,11 @@ public class EnemyManager {
 						if (t == null) {
 							continue;
 						}
-						if (t.getX() + t.getBounds().width >= e.getX()) {
+						if (t.getX() + t.getBounds().width >= e.getX() &&
+							e.getX() >= t.getX() &&
+							t.getY() >= e.getY() - 45 && 
+							t.getY() <= e.getY() + 45
+						) {
 							e.setAttacking(true);
 							e.attack(t);
 							attacking = true;
