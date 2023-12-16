@@ -20,7 +20,7 @@ public class Settings extends GameScene implements SceneMethods {
 	ToggleButton sfxOnButton;
 	ToggleButton sfxOffButton;
 	
-	private boolean sfxOn;
+	private static boolean sfxOn;
 
 	public Settings(Game game) {
 		super(game);
@@ -109,7 +109,7 @@ public class Settings extends GameScene implements SceneMethods {
 		btnBack.setHover(false);
 	}
 	
-	public boolean sfxIsOn() {
+	public static boolean sfxIsOn() {
 		return sfxOn;
 	}
 

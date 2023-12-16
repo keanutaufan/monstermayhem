@@ -9,21 +9,27 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import scenes.Settings;
+
 public class SoundHandler {
 
 	public static void RunSound(String path) {
-		try {
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
-			Clip clip = AudioSystem.getClip();
-			clip.open(inputStream);
-			clip.start();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
+		
+		if (Settings.sfxIsOn()) {
+			try {
+				AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
+				Clip clip = AudioSystem.getClip();
+				clip.open(inputStream);
+				clip.start();
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			}
 		}
+		
 	}
 	
 }
