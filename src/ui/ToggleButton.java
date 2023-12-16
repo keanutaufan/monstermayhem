@@ -10,7 +10,7 @@ public class ToggleButton extends ImageButton {
 	private BufferedImage offImage;
 	
 	public ToggleButton(int x, int y, BufferedImage onImage, BufferedImage offImage) {
-		super(x, y, null, null, null);
+		super(x, y, onImage, null, null);
 		on = false;
 		
 		this.onImage = onImage;
