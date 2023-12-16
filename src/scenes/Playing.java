@@ -64,7 +64,7 @@ public class Playing extends GameScene implements SceneMethods {
 //		tileManager = new TileManager();
 		enemyManager = new EnemyManager(this);		
 		spriteManager = new SpriteManager();
-		turretManager = new TurretManager(spriteManager);
+		turretManager = new TurretManager(spriteManager, enemyManager.getEnemies());
 		airdropManager = new AirdropManager();
 		waveManager = new WaveManager(this);
 		

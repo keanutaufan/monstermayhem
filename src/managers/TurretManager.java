@@ -3,8 +3,10 @@ package managers;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import bullets.Bullet;
+import enemies.Enemy;
 import helpers.LoadSave;
 import turrets.Turret;
 import turrets.TurretTypes;
@@ -18,9 +20,12 @@ public class TurretManager {
 	private Rectangle[][] plantArea;
 	
 	private SpriteManager spriteManager;
+	private ArrayList<Enemy> enemies;
 	
-	public TurretManager(SpriteManager spriteManager) {
+	public TurretManager(SpriteManager spriteManager, ArrayList<Enemy> enemies) {
 		this.spriteManager = spriteManager;
+		this.enemies = enemies;
+		
 		initTurretMap();
 		initPlantArea();
 	}
@@ -79,11 +84,27 @@ public class TurretManager {
 	public void update() {
 		for (int i = 0; i < turretMap.length; i++) {
 			for (int j = 0; j < turretMap[i].length; j++) {
-				if (turretMap[i][j] != null) {
-					turretMap[i][j].updateBullets();
-					if (turretMap[i][j].getHealth() <= 0) {
+				Turret t = turretMap[i][j];
+				if (t != null) {
+					t.updateBullets();
+					if (t.getHealth() <= 0) {
 						turretMap[i][j] = null;
 					}
+					
+					boolean turretIsBeingAttacked = false;
+					for (Enemy e : enemies) {
+						if (e.isAlive() && e.isAttacking()) {
+							if (t.getX() + t.getBounds().width >= e.getX() &&
+								e.getX() >= t.getX() &&
+								t.getY() >= e.getY() - 45 && 
+								t.getY() <= e.getY() + 45) {
+								turretIsBeingAttacked = true;
+								break;
+							}
+						}
+					}
+					
+					t.setAttacked(turretIsBeingAttacked);
 				}
 			}
 		}

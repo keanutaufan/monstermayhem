@@ -9,7 +9,6 @@ import bullets.AlmightyBullet3000;
 import bullets.Bullet;
 import helpers.LoadSave;
 import helpers.SoundHandler;
-import managers.SpriteManager;
 
 abstract public class Turret {
 	static final BufferedImage images = LoadSave.loadImage("turrets.png");
@@ -18,9 +17,12 @@ abstract public class Turret {
 	private float dmg, cooldown;
 	private int health;
 	private int initialHealth;
+	private boolean attacked;
 	
 	private BufferedImage normalImage;
+	private BufferedImage crackImage;
 	private BufferedImage hurtImage;
+	private BufferedImage hurtCrackImage;
 	
 	
 	private Rectangle bounds;
@@ -36,7 +38,9 @@ abstract public class Turret {
 			int initialHealth, 
 			TurretTypes turretType, 
 			BufferedImage normalImage,
-			BufferedImage hurtImage
+			BufferedImage crackImage,
+			BufferedImage hurtImage,
+			BufferedImage hurtCrackImage
 		) {
 		this.x = x;
 		this.y = y;
@@ -44,9 +48,12 @@ abstract public class Turret {
 		this.health = initialHealth;
 		
 		this.turretType = turretType;
+		this.attacked = false;
 		
 		this.normalImage = normalImage;
+		this.crackImage = crackImage;
 		this.hurtImage = hurtImage;
+		this.hurtCrackImage = hurtCrackImage;
 		
 		this.bounds = new Rectangle(x, y, normalImage.getWidth(), normalImage.getHeight());
 		
@@ -74,9 +81,17 @@ abstract public class Turret {
 
 	public void draw(Graphics g) {
 		if (health > initialHealth / 2) {
-			g.drawImage(normalImage, x, y, null);			
+			if (attacked) {
+				g.drawImage(hurtImage, x, y, null);								
+			} else {
+				g.drawImage(normalImage, x, y, null);				
+			}
 		} else {
-			g.drawImage(hurtImage, x, y, null);
+			if (attacked) {
+				g.drawImage(hurtCrackImage, x, y, null);								
+			} else {
+				g.drawImage(crackImage, x, y, null);				
+			}
 		}
 	}
 	
@@ -131,6 +146,10 @@ abstract public class Turret {
 	
 	public void reset() {
 		bullets.clear();
+	}
+	
+	public void setAttacked(boolean attacked) {
+		this.attacked = attacked;
 	}
 	
 }
