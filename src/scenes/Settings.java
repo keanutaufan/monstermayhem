@@ -11,12 +11,20 @@ import ui.ImageButton;
 public class Settings extends GameScene implements SceneMethods {
 	
 	BufferedImage bg;
+	BufferedImage titleImage;
+	BufferedImage textImage;
 	
 	ImageButton btnBack;
+	
+	private boolean sfxOn;
 
 	public Settings(Game game) {
 		super(game);
 		bg = LoadSave.loadImage("big_grass.png");
+		titleImage = LoadSave.loadImage("settings_title.png");
+		textImage = LoadSave.loadImage("settings_texts.png");
+		
+		sfxOn = true;
 		
 		initButtons();
 	}
@@ -40,7 +48,10 @@ public class Settings extends GameScene implements SceneMethods {
 			for (int x = 0; x < 27; x++) {
 				g.drawImage(bg, x * 48, y * 48, null);
 			}
-		}	
+		}
+		
+		g.drawImage(titleImage, 354, 26, null);
+		g.drawImage(textImage, 114, 334, null);
 		
 		renderButtons(g);
 	}
@@ -72,6 +83,10 @@ public class Settings extends GameScene implements SceneMethods {
 	public void handleMouseRelease(int x, int y) {
 		btnBack.setPressed(false);
 		btnBack.setHover(false);
+	}
+	
+	public boolean sfxIsOn() {
+		return sfxOn;
 	}
 
 }
