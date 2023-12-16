@@ -5,7 +5,7 @@ public class NavyTank extends Turret {
 		super(
 				x, 
 				y, 
-				500, 
+				10, 
 				TurretTypes.NAVY_TANK, 
 				images.getSubimage(360, 0, 120, 120),
 				images.getSubimage(360, 120, 120, 120),

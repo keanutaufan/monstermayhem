@@ -5,7 +5,7 @@ public class DesertTank extends Turret {
 		super(
 				x, 
 				y, 
-				350, 
+				7, 
 				TurretTypes.DESERT_TANK, 
 				images.getSubimage(120, 0, 120, 120),
 				images.getSubimage(120, 120, 120, 120),

@@ -27,6 +27,9 @@ public class EnemyManager {
 	
 	private int HealthBarWidth = 80;
 	
+	private long lastAttackTime;
+    private static final long ATTACK_COOLDOWN = 1000;
+	
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
@@ -35,7 +38,7 @@ public class EnemyManager {
 //		addEnemy(10, 4, CRUSTY);
 //		addEnemy(10, 2, DUKE);
 //		addEnemy(10, 4, DASH);
-		
+		lastAttackTime = System.currentTimeMillis();
 		loadEnemyImgs();
 	}
 	
@@ -91,8 +94,14 @@ public class EnemyManager {
 							t.getY() <= e.getY() + 45
 						) {
 							e.setAttacking(true);
-							e.attack(t);
 							attacking = true;
+							
+							long currentTime = System.currentTimeMillis();
+							if (currentTime - lastAttackTime >= ATTACK_COOLDOWN) {
+								SoundHandler.RunSound("assets/turret_attacked_sound.wav");
+								e.attack(t);
+					            lastAttackTime = currentTime;
+					        }
 						}
 					}
 				}

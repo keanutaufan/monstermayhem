@@ -5,7 +5,7 @@ public class GrayTank extends Turret {
 		super(
 				x, 
 				y, 
-				350, 
+				7, 
 				TurretTypes.GRAY_TANK, 
 				images.getSubimage(240, 0, 120, 120),
 				images.getSubimage(240, 120, 120, 120),
