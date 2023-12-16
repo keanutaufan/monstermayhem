@@ -11,6 +11,7 @@ public abstract class Enemy {
 	protected Rectangle bounds;
 	protected int health;
 	protected int maxHealth;
+	protected int dmg;
 	protected int ID;
 	protected int enemyType;
 	protected boolean alive = true;
@@ -23,11 +24,16 @@ public abstract class Enemy {
 		this.enemyType = enemyType;
 		bounds = new Rectangle((int)x, (int)y, 120, 120);
 		setStartHealth();
+		setDmg();
 	}
 
 	private void setStartHealth() {
 		health = helpers.Constants.Enemies.GetStartHealth(enemyType);
 		maxHealth = health;
+	}
+	
+	private void setDmg() {
+		dmg = helpers.Constants.Enemies.GetDmg(enemyType);
 	}
 	
 	public float getHealthBarFloat() {
@@ -42,7 +48,7 @@ public abstract class Enemy {
 	}
 	
 	public void attack(Turret turret) {
-		turret.hurt(1);
+		turret.hurt(dmg);
 	}
 	
 	public void move(float x, float y) {

@@ -28,7 +28,7 @@ public class EnemyManager {
 	private int HealthBarWidth = 80;
 	
 	private long lastAttackTime;
-    private static final long ATTACK_COOLDOWN = 1000;
+    private static final long ATTACK_COOLDOWN = 1500;
 	
 	public EnemyManager(Playing playing) {
 		this.playing = playing;

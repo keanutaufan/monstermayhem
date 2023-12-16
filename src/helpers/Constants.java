@@ -42,6 +42,21 @@ public class Constants {
 			
 			return 0;
 		}
+		
+		public static int GetDmg(int enemyType) {
+			switch (enemyType) {
+			case GOPHER:
+				return 1;
+			case CRUSTY:
+				return 1;
+			case DUKE:
+				return 2;
+			case DASH:
+				return 4;
+			}
+			
+			return 0;
+		}
 	
 	}
 	
