@@ -3,6 +3,7 @@ package scenes;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +13,7 @@ import airdrop.AirdropTypes;
 import bullets.Bullet;
 import enemies.Enemy;
 import helpers.SoundHandler;
+import inputs.KeyboardListener;
 import main.Game;
 import managers.AirdropManager;
 import managers.EnemyManager;
@@ -55,11 +57,14 @@ public class Playing extends GameScene implements SceneMethods {
 	private int placeholderX;
 	private int placeholderY;
 	
+	private boolean gamePaused;
+	
 	public Playing(Game game) {
 		super(game);
 		airdrop = 0;
 		plantingMode = false;
 		removeMode = false;
+		gamePaused = false;
 //		level = LevelBuilder.getLevelData();
 //		tileManager = new TileManager();
 		enemyManager = new EnemyManager(this);		
@@ -126,25 +131,27 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	public void update() {
-		waveManager.update();
+		if (!gamePaused) {
+			waveManager.update();
 		
-		if (areAllEnemiesDead() && areThereMoreWaves()) {
-			waveManager.startWaveTimer();
-			if (isWaveTimerOver()) {
-				waveManager.increaseWaveIndex();
-				enemyManager.getEnemies().clear();
-				waveManager.resetEnemyIndex();
+			if (areAllEnemiesDead() && areThereMoreWaves()) {
+				waveManager.startWaveTimer();
+				if (isWaveTimerOver()) {
+					waveManager.increaseWaveIndex();
+					enemyManager.getEnemies().clear();
+					waveManager.resetEnemyIndex();
+				}
 			}
+			
+			if (isTimeForNewEnemy()) {
+				spawnEnemy(10, new Random().nextInt(5) + 1);
+			}
+			
+			enemyManager.update();
+			turretManager.update();
+			attackEnemyIfRange();
+			airdropManager.update();
 		}
-		
-		if (isTimeForNewEnemy()) {
-			spawnEnemy(10, new Random().nextInt(5) + 1);
-		}
-		
-		enemyManager.update();
-		turretManager.update();
-		attackEnemyIfRange();
-		airdropManager.update();
 	}
 	
 	private boolean isWaveTimerOver() {
@@ -355,6 +362,10 @@ public class Playing extends GameScene implements SceneMethods {
 		this.removeMode = removeMode;
 	}
 	
+	public void togglePause() {
+        gamePaused = !gamePaused;
+    }
+	
 	public WaveManager getWaveManager() {
 		return waveManager;
 	}
@@ -372,6 +383,12 @@ public class Playing extends GameScene implements SceneMethods {
 			t.reset();
 		}
 		airdropManager.reset();
+	}
+
+	public void handleKeyPress(int keyCode) {
+		if (keyCode == KeyEvent.VK_ESCAPE) {
+	        togglePause();
+	    }
 	}
 
 }

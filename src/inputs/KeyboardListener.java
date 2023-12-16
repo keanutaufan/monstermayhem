@@ -3,8 +3,17 @@ package inputs;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyboardListener implements KeyListener {
+import main.Game;
+import main.GameStates;
 
+public class KeyboardListener implements KeyListener {
+	
+	private Game game;
+
+    public KeyboardListener(Game game) {
+        this.game = game;
+    }
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -13,11 +22,17 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_A) {
-			System.out.println("A pressed");
-		} else if (e.getKeyCode() == KeyEvent.VK_B) {
-			System.out.println("B pressed");
-		}
+		switch (GameStates.gameState) {
+        case MENU:
+            break;
+        case PLAYING:
+            game.getPlaying().handleKeyPress(e.getKeyCode());
+            break;
+        case SETTINGS:
+            break;
+        case GAME_OVER:
+            break;
+    }
 	}
 
 	@Override

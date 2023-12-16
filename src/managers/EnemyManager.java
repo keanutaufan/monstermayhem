@@ -14,6 +14,7 @@ import enemies.Duke;
 import enemies.Enemy;
 import enemies.Gopher;
 import helpers.LoadSave;
+import helpers.SoundHandler;
 import main.GameStates;
 import scenes.Playing;
 import turrets.Turret;
@@ -95,7 +96,6 @@ public class EnemyManager {
 						}
 					}
 				}
-
 				
 				e.setAttacking(attacking);
 				

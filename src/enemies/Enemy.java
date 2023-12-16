@@ -2,6 +2,7 @@ package enemies;
 
 import java.awt.Rectangle;
 
+import helpers.SoundHandler;
 import turrets.Turret;
 
 public abstract class Enemy {

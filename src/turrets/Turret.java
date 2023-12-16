@@ -121,6 +121,7 @@ abstract public class Turret {
 	}
 	
 	public void hurt(int damage) {
+		SoundHandler.RunSound("assets/turret_attacked_sound.wav");
 		health -= damage;
 	}
 	
