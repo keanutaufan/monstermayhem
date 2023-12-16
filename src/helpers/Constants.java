@@ -31,13 +31,13 @@ public class Constants {
 		public static int GetStartHealth(int enemyType) {
 			switch (enemyType) {
 			case GOPHER:
-				return 75;
-			case CRUSTY:
-				return 250;
-			case DUKE:
 				return 150;
+			case CRUSTY:
+				return 500;
+			case DUKE:
+				return 300;
 			case DASH:
-				return 100;
+				return 200;
 			}
 			
 			return 0;
@@ -57,9 +57,9 @@ public class Constants {
 				case GREEN_TANK:
 					return 10;
 				case DESERT_TANK:
-					return 15;
+					return 8;
 				case GRAY_TANK:
-					return 20;
+					return 15;
 				case NAVY_TANK:
 					return 25;
 			}
@@ -72,7 +72,7 @@ public class Constants {
 				case GREEN_TANK:
 					return 2000;
 				case DESERT_TANK:
-					return 2000;
+					return 1000;
 				case GRAY_TANK:
 					return 2000;
 				case NAVY_TANK:

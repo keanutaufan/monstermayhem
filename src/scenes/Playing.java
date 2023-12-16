@@ -307,7 +307,7 @@ public class Playing extends GameScene implements SceneMethods {
 						
 						for (Bullet b : t.getBullets()) {
 							if (b.hit(e)) {
-								SoundHandler.RunSound("assets/oof_sound.wav");
+								SoundHandler.RunSound("assets/monster_hit_sound.wav");
 								e.hurt(t.getDmg());
 								t.getBullets().remove(b);
 								break;
