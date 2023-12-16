@@ -60,7 +60,7 @@ public class GameOver extends GameScene implements SceneMethods {
 			replayGame();
 			GameStates.gameState = GameStates.PLAYING;
 		} else if (btnSettings.getBounds().contains(x, y)) {
-			
+			GameStates.gameState = GameStates.SETTINGS;
 		} else if (btnExit.getBounds().contains(x, y)) {
 			GameStates.gameState = GameStates.MENU;
 		}

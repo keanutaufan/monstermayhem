@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -202,6 +203,13 @@ public class Playing extends GameScene implements SceneMethods {
 		else if (removeMode) {
 			turretManager.drawRemoveArea(g);
 			turretManager.drawPlaceholder(g, placeholderX, placeholderY);
+		}
+		
+		if (gamePaused) {
+			g.setColor(Color.WHITE);
+			g.setFont(g.getFont().deriveFont(Font.PLAIN, 30));
+			g.drawString("Game Paused", 520, 320);
+			g.drawString("[press esc to continue]", 460, 360);
 		}
 		
 		airdropManager.draw(g);
