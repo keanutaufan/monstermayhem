@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class ImageButton {
-	private int x, y;
+	protected int x, y;
 	private Rectangle bounds;
 	private boolean hover;
 	private boolean pressed;
