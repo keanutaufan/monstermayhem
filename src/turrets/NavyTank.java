@@ -2,6 +2,12 @@ package turrets;
 
 public class NavyTank extends Turret {
 	public NavyTank(int x, int y) {
-		super(x, y, 500, TurretTypes.NAVY_TANK, spriteManager.getSprite(3));
+		super(
+				x, 
+				y, 
+				500, 
+				TurretTypes.NAVY_TANK, 
+				images.getSubimage(360, 0, 120, 120),
+				images.getSubimage(360, 120, 120, 120));
 	}
 }

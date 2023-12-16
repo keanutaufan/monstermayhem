@@ -7,17 +7,22 @@ import java.util.ArrayList;
 
 import bullets.AlmightyBullet3000;
 import bullets.Bullet;
+import helpers.LoadSave;
 import helpers.SoundHandler;
 import managers.SpriteManager;
 
 abstract public class Turret {
-	static final SpriteManager spriteManager = new SpriteManager();
+	static final BufferedImage images = LoadSave.loadImage("turrets.png");
 	
 	private int x, y;
 	private float dmg, cooldown;
 	private int health;
+	private int initialHealth;
 	
-	private BufferedImage image;
+	private BufferedImage normalImage;
+	private BufferedImage hurtImage;
+	
+	
 	private Rectangle bounds;
 	private TurretTypes turretType;
 	
@@ -25,15 +30,25 @@ abstract public class Turret {
 	
 	private long lastShootTime;
 	
-	public Turret(int x, int y, int initialHealth, TurretTypes turretType, BufferedImage image) {
+	public Turret(
+			int x, 
+			int y, 
+			int initialHealth, 
+			TurretTypes turretType, 
+			BufferedImage normalImage,
+			BufferedImage hurtImage
+		) {
 		this.x = x;
 		this.y = y;
+		this.initialHealth = initialHealth;
 		this.health = initialHealth;
 		
 		this.turretType = turretType;
 		
-		this.image = image;
-		this.bounds = new Rectangle(x, y, image.getWidth(), image.getHeight());
+		this.normalImage = normalImage;
+		this.hurtImage = hurtImage;
+		
+		this.bounds = new Rectangle(x, y, normalImage.getWidth(), normalImage.getHeight());
 		
 		bullets = new ArrayList<>();
 		
@@ -58,7 +73,11 @@ abstract public class Turret {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
+		if (health > initialHealth / 2) {
+			g.drawImage(normalImage, x, y, null);			
+		} else {
+			g.drawImage(hurtImage, x, y, null);
+		}
 	}
 	
 	public void updateBullets() {
