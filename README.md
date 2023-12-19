@@ -7,8 +7,9 @@ Sebuah permainan oleh bad sad
 - [Keanu Fortuna Taufan](https://github.com/keanutaufan) (NRP 5025221042)
 - [Fadhl Akmal Madany](https://github.com/fadhlakmal) (NRP 5025221028)
 
-dibuat sebagai submission untuk kelas Pemrograman
-Berorientasi Obyek (PBO) E Tahun Ajaran 2023-2024 oleh
+dibuat sebagai submission final project untuk 
+kelas Pemrograman Berorientasi Obyek (PBO) E 
+Tahun Ajaran 2023-2024 oleh
 [Rizky Januar Akbar](https://github.com/ricesky).
 
 
@@ -40,4 +41,4 @@ Sebagian besar asset yang tidak dibuat sendiri
 berasal dari [Kenney Assets](https://kenney.nl/).
 Kenney Assets menyediakan ribuan asset permainan
 siap pakai di bawah public domain dengan lisensi
-[CC0](https://creativecommons.org/public-domain/cc0/).
+[CC0](https://creativecommons.org/publicdomain/zero/1.0/).
